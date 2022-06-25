@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weather Application</title>
+
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+</head>
+
+<body style="background-color:#00BFFF">
+    
+
+    
+    <nav class="dark bg-primary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#" style="color: white; font-size:50px">Weather Application</a>
+          
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          </div>
+        </div>
+      </nav>
+
+
+        <span class="subtitle"><b>Current Date and Time: {{date_time }}</b></span>
+    
+    <section class="section">
+        
+        <div class="container">
+            
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="field has-addons">
+                            <div class="control is-expanded">
+                                
+                                {{ form.name }}
+                            </div>
+                            <div class="control">
+                                <button class="button is-black">
+                                    Add
+                                </button>
+                            </div>
+                        </div>
+                        {% if message %}
+                            <div class= "notification {{ message_notification }}">{{ message }}</div>
+                            {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="jumbotron">
+            
+            <div class="columns">
+                <div class="column is-offset-4 is-4">
+                    {% for weather_info in data %}
+                    <div class="box">
+                        <article class="media">
+                            <div class="media-left">
+                                <figure class="image is-70x70">
+                                    <img src="http://openweathermap.org/img/w/{{ weather_info.icon }}.png" alt="Image">
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <span class="title">{{ weather_info.city }}</span>
+                                        <br>
+                                        <br>
+                                        <span class="subtitle">Temperature: <b>{{weather_info.temperature }} &#8451;</b></span>
+                                        <br>
+                                        <span class="subtitle">Feels Like: {{weather_info.feels_like }} &#8451;</span>
+                                        <br>
+                                        <span class="subtitle">Description: <i>{{ weather_info.description }}</i></span>
+                                        <br>
+                                        <span class="subtitle">Humidity: {{weather_info.humidity }} %</span>
+                                        <br>
+                                        <span class="subtitle">Cloudiness: {{weather_info.cloudiness }} %</span>
+                                        <br>
+                                        <span class="subtitle">Visibility: {{weather_info.visibility }} meters</span>
+                                        
+                                        <br>
+                                        <span class="subtitle">Wind speed: {{weather_info.wind_speed }} meters/sec</span>
+                                        <br>
+                                        
+                                       
+                                        <span class="subtitle">Country Code: {{weather_info.country }}</span>
+                                        <br>
+                                        
+                                        
+                                        
+                                    </p>
+                                </div>
+                            <div class="media-right">
+                                <a href="{% url 'delete_city' weather_info.city %}">
+                                    <button class="delete"></button>
+                                </a>
+                            </div>
+                        </article>
+                    </div>
+
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    
+</body>
+
+</html>
