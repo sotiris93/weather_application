@@ -7,7 +7,7 @@ from datetime import datetime
 
 def home(request):
 
-    url = 'https://api.openweathermap.org/data/2.5/weather?q={}&appid=2b64f841e4641e1be0b6892d40341ce1&units=metric&lang=en'
+    url = 'https://api.openweathermap.org/data/2.5/weather?q={}&appid={API KEY}&units=metric&lang=en'
     
     err_message=''
     message = ''
